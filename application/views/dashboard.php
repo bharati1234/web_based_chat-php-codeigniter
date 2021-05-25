@@ -9,7 +9,9 @@
 
   <title>Login Application</title>
   <?php $this->load->view('style');
+
   ?>
+
 </head>
 
 <body>
@@ -58,7 +60,7 @@
                       <td><?php echo $Users['username']; ?></td>
                       <td><?php echo $Users['email']; ?></td>
                       <td>
-                        <a class="btn btn-success" data-receiver_userid="<?php echo $Users['user_id']; ?>" data-send_userid="<?php echo $Users['user_id']; ?>" id="<?php echo $Users['user_id']; ?>">Send Request</a>
+                        <a class="btn btn-success" data-receiver_userid="<?php echo $Users['user_id']; ?>" data-send_userid="<?php echo $Users['user_id']; ?>" autocomplete="true" id="<?php echo $Users['user_id']; ?>">Send Request</a>
 
                       </td>
 
@@ -117,7 +119,7 @@
         },
         success: function(data) {
           //alert("Request send");
-          $('#' + id).attr('disabled', false);
+          $('#' + id).attr('disabled', true);
           $('#' + id).removeClass('btn-success');
           $('#' + id).addClass('btn-warning');
           $('#' + id).text('Request Sent');

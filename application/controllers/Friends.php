@@ -13,13 +13,6 @@ class Friends extends CI_Controller
     $data = array();
     $data['Friends'] = $Friends;
     $this->load->view('admin/User/listFriends', $data);
-
-    // $Friend_request = $this->Friends_model->getAllFriendsRequestId();
-    // $data = array();
-    // print_R($Friend_request);
-    // $data['Friends'] = $Friend_request;
-
-    $this->load->view('admin/User/listFriends', $data);
   }
   function send_request()
   {
@@ -58,6 +51,7 @@ class Friends extends CI_Controller
       $this->Friends_model->accept_chat_request_add_friend($sender_userid);
       $this->Friends_model->accept_chat_request_by_sender_add_friend($sender_userid);
       $this->Friends_model->accept_chat_request_delete_reciever($sender_userid);
+      $this->Friends_model->delete_chat_request_by_sender_delete_sender_id($sender_userid);
     }
   }
   function decline_Friend_request()
@@ -66,6 +60,7 @@ class Friends extends CI_Controller
     if ($this->input->post('sender_userid')) {
       $sender_userid = $this->input->post('sender_userid');
       $this->Friends_model->accept_chat_request_delete_reciever($sender_userid);
+      $this->Friends_model->delete_chat_request_by_sender_delete_sender_id($sender_userid);
     }
   }
 }

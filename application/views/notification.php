@@ -51,7 +51,10 @@
                 </tr>
               </thead>
               <tbody>
+                <?php // print_R($friend_request_list[0]); 
+                ?>
                 <?php if (!empty($friend_request_list)) {
+
 
                   foreach ($friend_request_list as $request_list) { ?>
                     <tr>
@@ -59,9 +62,9 @@
                       <td><?php echo $request_list['email']; ?></td>
                       <?php echo $request_list['user_id']; ?>
                       <td>
-                        <a class="btn btn-success" data-receiver_userid="<?php echo $request_list['user_id']; ?>" data-sender_userid="<?php echo $request_list['user_id']; ?>" id="<?php echo $request_list['user_id'];
-                                                                                                                                                                                    ?>">Accept</a>
-                        <a class="btn btn-primary" data-receiver_userid="<?php echo $request_list['user_id']; ?>" data-send_userid="<?php echo $request_list['user_id']; ?>" id="<?php echo $request_list['user_id']; ?>">Decline</a>
+                        <a class="btn btn-success" data-receiver_userid="<?php echo $request_list['user_id']; ?>" data-sender_userid="<?php echo $request_list['user_id']; ?>" id="accept_request<?php echo $request_list['user_id']; ?>">Accept</a>
+                        <a class="btn btn-primary" data-receiver_userid="<?php echo $request_list['user_id']; ?>" data-sender_userid="<?php echo $request_list['user_id']; ?>" id="decline_request<?php echo $request_list['user_id'];
+                                                                                                                                                                                                  ?>">Decline</a>
                       </td>
 
                     </tr>
@@ -69,7 +72,7 @@
                 } else {
                   ?>
                   <tr>
-                    <td colspan="4">Records Not Fount..</td>
+                    <td colspan="4">Sorry...There are not any new Friend Request.</td>
                   </tr>
                 <?php
                 } ?>
@@ -129,33 +132,33 @@
     })
   </script>
   <script type="text/javascript">
-    // $(document).on('click', '.btn-primary', function() {
-    //   var id = $(this).attr('id');
+    $(document).on('click', '.btn-primary', function() {
+      var id = $(this).attr('id');
 
-    //   var receiver_userid = $(this).data('receiver_userid');
-    //   //console.log(receiver_userid);
-    //   var sender_userid = $(this).data('sender_userid');
-    //   //console.log(send_userid);
-    //   $.ajax({
+      var receiver_userid = $(this).data('receiver_userid');
+      //console.log(receiver_userid);
+      var sender_userid = $(this).data('sender_userid');
+      //console.log(sender_userid);
+      $.ajax({
 
-    //     url: "<?php echo base_url(); ?>index.php/Friends/decline_Friend_request",
-    //     method: "POST",
-    //     data: {
-    //       //receiver_userid: receiver_userid,
-    //       sender_userid: sender_userid
-    //     },
-    //     beforeSend: function() {
-    //       //$('#' + id).attr('disabled', 'disabled');
-    //     },
-    //     success: function(data) {
-    //       //alert("Request send");
-    //       $('#' + id).attr('disabled', false);
-    //       $('#' + id).removeClass('btn-primary');
-    //       $('#' + id).addClass('btn-danger');
-    //       $('#' + id).text('Request Rejected');
-    //     }
-    //   })
-    // })
+        url: "<?php echo base_url(); ?>index.php/Friends/decline_Friend_request",
+        method: "POST",
+        data: {
+          receiver_userid: receiver_userid,
+          sender_userid: sender_userid
+        },
+        beforeSend: function() {
+          // $('#' + id).attr('disabled', 'disabled');
+        },
+        success: function(data) {
+
+          $('#' + id).attr('disabled', false);
+          $('#' + id).removeClass('btn-primary');
+          $('#' + id).addClass('btn-danger');
+          $('#' + id).text('Request Rejected');
+        }
+      })
+    })
   </script>
 
 </body>

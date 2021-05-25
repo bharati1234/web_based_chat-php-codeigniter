@@ -16,8 +16,13 @@ class Friends_model extends CI_Model
     $user = $this->session->userdata('user');
     $userid = $user['user_id'];
     $this->db->select('friends');
-    $this->db->where('user_id', $userid);
+    $array = array('user_id' => $userid, 'friends!=' => '');
+    $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
+
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
 
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
@@ -34,6 +39,7 @@ class Friends_model extends CI_Model
       $listItem = array_shift($list);
       array_push($friends_details, $listItem);
     }
+    //print_r($friends_details);
     return $friends_details;
   }
 
@@ -43,9 +49,12 @@ class Friends_model extends CI_Model
     $user = $this->session->userdata('user');
     $userid = $user['user_id'];
     $this->db->select('sender_id');
-    $this->db->where('user_id', $userid);
+    $array = array('user_id' => $userid, 'sender_id!=' => '');
+    $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -67,9 +76,14 @@ class Friends_model extends CI_Model
   {
 
     $this->db->select('receiver_id');
-    $this->db->where('user_id', $receiver_id);
-    $data_Array = $this->db->get('users')->result_array();
+    $array = array('user_id' => $receiver_id, 'receiver_id!=' => '');
+    $this->db->where($array);
+    //$this->db->where('user_id', $receiver_id);
 
+    $data_Array = $this->db->get('users')->result_array();
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -94,9 +108,13 @@ class Friends_model extends CI_Model
     $user = $this->session->userdata('user');
     $userid = $user['user_id'];
     $this->db->select('receiver_id');
-    $this->db->where('user_id', $userid);
+    //$this->db->where('user_id', $userid);
+    $array = array('user_id' => $userid, 'receiver_id!=' => '');
+    $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -120,9 +138,13 @@ class Friends_model extends CI_Model
     $user = $this->session->userdata('user');
     $userid = $user['user_id'];
     $this->db->select('friends');
-    $this->db->where('user_id', $userid);
+    $array = array('user_id' => $userid, 'friends!=' => '');
+    $this->db->where($array);
+    //$this->db->where('user_id', $userid);
     $data_Array = $this->db->get('users')->result_array();
-
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -147,9 +169,13 @@ class Friends_model extends CI_Model
     //fetching already if already having freinds for session user
     //
     $this->db->select('friends');
-    $this->db->where('user_id', $sender_userid);
+    // $this->db->where('user_id', $sender_userid);
+    $array = array('user_id' => $sender_userid, 'friends!=' => '');
+    $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -172,14 +198,47 @@ class Friends_model extends CI_Model
     $this->db->set('friends', $new_friend_id);
     $this->db->update('users');
   }
+  function delete_chat_request_by_sender_delete_sender_id($sender_userid)
+  {
+
+    $this->db->select('sender_id');
+    //$this->db->where('user_id', $sender_userid);
+    $array = array('user_id' => $sender_userid, 'sender_id!=' => '');
+    $this->db->where($array);
+    $data_Array = $this->db->get('users')->result_array();
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
+    //instead of foreach i used array_shift
+    $user_details = array_shift($data_Array);
+
+    $old_sender_id = $user_details['sender_id'];
+    $user = $this->session->userdata('user');
+    $userid = $user['user_id'];
+    $char_to_remove = $userid . ",";
+
+    $new_sender_id = str_replace($char_to_remove, '', $old_sender_id);
+    $char_to_remove = $userid;
+    $new_sender_id = str_replace($char_to_remove, '', $new_sender_id);
+    //if request accepted by reciever then sender id will delete from reciever_id
+    $new_sender_id = ltrim($new_sender_id, ',');
+
+    $this->db->where('user_id', $sender_userid);
+    $this->db->set('sender_id', $new_sender_id);
+    $this->db->update('users');
+  }
   function accept_chat_request_delete_reciever($sender_userid)
   {
     $user = $this->session->userdata('user');
     $userid = $user['user_id'];
     $this->db->select('receiver_id');
-    $this->db->where('user_id', $userid);
+    //$this->db->where('user_id', $userid);
+    $array = array('user_id' => $userid, 'receiver_id!=' => '');
+    $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-
+    if (empty($data_Array)) {
+      return $data_Array;
+    }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 

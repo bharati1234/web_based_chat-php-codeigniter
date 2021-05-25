@@ -40,10 +40,39 @@ class User_model extends CI_Model
     $user = $this->db->get('users')->row_array();
     return $user;
   }
+  public function sent_messages($session_uid, $id)
+  {
+    //$this->db->select('*');
+    // $this->db->where('from_user_id', $session_uid);
+    // $this->db->where('to_user_id', $id);
+    // //$array1 = array('from_user_id' => $session_uid, 'to_user_id' => $id);
+    // //$this->db->where($array1);
+    //$array2 = array('to_user_id' =>  $session_uid, 'from_user_id' => $id);
+    $this->db->where("(from_user_id= $session_uid and to_user_id=$id ) or (to_user_id= $session_uid and from_user_id=$id )");
+    $getsent_messages = $this->db->get('chat_message')->result_array();
+    //print_r($this->db->last_query());
+    return $getsent_messages;
+  }
+  public function recieved_messages($id, $session_uid)
+  {
+    // echo $id;
+    // echo $session_uid;
+    $array = array('to_user_id' =>  $session_uid, 'from_user_id' => $id);
+    $this->db->where($array);
+    //$this->db->where('from_user_id', $id);
+    $getrecieved_messages = $this->db->get('chat_message')->result_array();
+    //print_r($this->db->last_query());
+    return $getrecieved_messages;
+  }
   public function update_user($id, $array)
   {
     $this->db->where('user_id', $id);
     $this->db->update('users', $array);
+  }
+  public function insert_chat_messages($array)
+  {
+    //$this->db->where('user_id', $from_user_id);
+    $this->db->insert('chat_message', $array);
   }
 }
 

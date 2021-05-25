@@ -28,9 +28,10 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="<?php if ($this->uri->segment(1) == 'Friends') {
-                    echo 'nav-link active';
-                  } ?>" href="<?php echo base_url('index.php/Friends/Recieved_request') ?>" title="My Freinds">
+        <a class="<?php //if ($this->uri->segment(1) == 'Friends') {
+                  //echo 'nav-link active';
+                  ///} 
+                  ?>" href="<?php echo base_url('index.php/Friends/Recieved_request') ?>" title="My Freinds">
           <span data-feather="file"></span>
           New Friend Requests
         </a>

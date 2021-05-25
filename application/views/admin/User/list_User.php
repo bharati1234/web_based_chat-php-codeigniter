@@ -32,13 +32,7 @@
           </div>
         <?php } ?>
 
-        <?php $success = $this->session->userdata('success');
-        if (!empty($success)) {
-        ?>
-          <div class="alert alert-success">
-            <?php echo $success; ?>
-          </div>
-        <?php } ?>
+
 
         <form name="list_user" id="list_user" method="post" action="<?php ?>">
           <div class="table-responsive">

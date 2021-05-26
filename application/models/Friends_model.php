@@ -19,10 +19,11 @@ class Friends_model extends CI_Model
     $array = array('user_id' => $userid, 'friends!=' => '');
     $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
+    //print_r(count($data_Array));
 
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
 
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
@@ -39,7 +40,8 @@ class Friends_model extends CI_Model
       $listItem = array_shift($list);
       array_push($friends_details, $listItem);
     }
-    //print_r($friends_details);
+
+    //print_r(count($friends_details));
     return $friends_details;
   }
 
@@ -245,7 +247,7 @@ class Friends_model extends CI_Model
     $old_receiver_id = $user_details['receiver_id'];
 
     $char_to_remove = $sender_userid . ",";
-    
+
     $new_reciever_id = str_replace($char_to_remove, '', $old_receiver_id);
     $char_to_remove = $sender_userid;
     $new_reciever_id = str_replace($char_to_remove, '', $old_receiver_id);

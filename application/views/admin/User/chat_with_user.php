@@ -346,29 +346,6 @@
         ?>
 
         <form name="chat_blog" id="chat_blog" method="post" action="<?php echo base_url() . 'index.php/User/send_chat/' . $sessionuid['user_id']; ?>">
-          <!-- <div class="form-group">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" id="username" value="<?php echo set_value('username', $User['username']); ?>" class="form-control">
-            <p class="help-block"><?php echo form_error('username'); ?></p>
-
-
-          </div> -->
-          <!--<div class="form-group">
-            <label>Email</label>
-            <textarea name="email" id="email" class="form-control"><?php //echo set_value('email', $User['email']); 
-                                                                    ?></textarea>
-            <p class="help-block"><?php //echo form_error('email'); 
-                                  ?></p>
-
-          </div>-->
-          <!-- <div class="form-group">
-            <label>Phone</label>
-            <input type="text" name="phone" id="phone" value="<?php //echo set_value('phone', $User['phone']); 
-                                                              ?>" class="form-control">
-            <p class="help-block"><?php //echo form_error('phone') 
-                                  ?></p>
-
-          </div> -->
           <?php $success = $this->session->userdata('success');
           if (!empty($success)) {
           ?>

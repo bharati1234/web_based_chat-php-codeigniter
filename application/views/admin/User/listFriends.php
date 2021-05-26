@@ -7,609 +7,230 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <style>
-    .fa-2x {
-      font-size: 1.5em;
+    /*---------chat window---------------*/
+    .container {
+      max-width: 900px;
     }
 
-    .app {
-      position: relative;
+    .inbox_people {
+      background: #fff;
+      float: left;
       overflow: hidden;
-      top: 19px;
-      height: calc(100% - 38px);
-      margin: auto;
-      padding: 0;
-      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
+      width: 30%;
+      border-right: 1px solid #ddd;
     }
 
-    .app-one {
-      background-color: #f7f7f7;
-      height: 100%;
+    .inbox_msg {
+      border: 1px solid #ddd;
+      clear: both;
       overflow: hidden;
-      margin: 0;
-      padding: 0;
-      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
     }
 
-    .side {
-      padding: 0;
-      margin: 0;
-      height: 100%;
+    .top_spac {
+      margin: 20px 0 0;
     }
 
-    .side-one {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-      z-index: 1;
-      position: relative;
-      display: block;
-      top: 0;
+    .recent_heading {
+      float: left;
+      width: 40%;
     }
 
-    .side-two {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-      z-index: 2;
-      position: relative;
-      top: -100%;
-      left: -100%;
-      -webkit-transition: left 0.3s ease;
-      transition: left 0.3s ease;
-
-    }
-
-
-    .heading {
-      padding: 10px 16px 10px 15px;
-      margin: 0;
-      height: 60px;
-      width: 100%;
-      background-color: #eee;
-      z-index: 1000;
-    }
-
-    .heading-avatar {
-      padding: 0;
-      cursor: pointer;
-
-    }
-
-    .heading-avatar-icon img {
-      border-radius: 50%;
-      height: 40px;
-      width: 40px;
-    }
-
-    .heading-name {
-      padding: 0 !important;
-      cursor: pointer;
-    }
-
-    .heading-name-meta {
-      font-weight: 700;
-      font-size: 100%;
-      padding: 5px;
-      padding-bottom: 0;
-      text-align: left;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #000;
-      display: block;
-    }
-
-    .heading-online {
-      display: none;
-      padding: 0 5px;
-      font-size: 12px;
-      color: #93918f;
-    }
-
-    .heading-compose {
-      padding: 0;
-    }
-
-    .heading-compose i {
-      text-align: center;
-      padding: 5px;
-      color: #93918f;
-      cursor: pointer;
-    }
-
-    .heading-dot {
-      padding: 0;
-      margin-left: 10px;
-    }
-
-    .heading-dot i {
-      text-align: right;
-      padding: 5px;
-      color: #93918f;
-      cursor: pointer;
-    }
-
-    .searchBox {
-      padding: 0 !important;
-      margin: 0 !important;
-      height: 60px;
-      width: 100%;
-    }
-
-    .searchBox-inner {
-      height: 100%;
-      width: 100%;
-      padding: 10px !important;
-      background-color: #fbfbfb;
-    }
-
-
-    /*#searchBox-inner input {
-  box-shadow: none;
-}*/
-
-    .searchBox-inner input:focus {
-      outline: none;
-      border: none;
-      box-shadow: none;
-    }
-
-    .sideBar {
-      padding: 0 !important;
-      margin: 0 !important;
-      background-color: #fff;
-      overflow-y: auto;
-      border: 1px solid #f7f7f7;
-      height: calc(100% - 120px);
-    }
-
-    .sideBar-body {
-      position: relative;
-      padding: 10px !important;
-      border-bottom: 1px solid #f7f7f7;
-      height: 72px;
-      margin: 0 !important;
-      cursor: pointer;
-    }
-
-    .sideBar-body:hover {
-      background-color: #f2f2f2;
-    }
-
-    .sideBar-avatar {
-      text-align: center;
-      padding: 0 !important;
-    }
-
-    .avatar-icon img {
-      border-radius: 50%;
-      height: 49px;
-      width: 49px;
-    }
-
-    .sideBar-main {
-      padding: 0 !important;
-    }
-
-    .sideBar-main .row {
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    .sideBar-name {
-      padding: 10px !important;
-    }
-
-    .name-meta {
-      font-size: 100%;
-      padding: 1% !important;
-      text-align: left;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #000;
-    }
-
-    .sideBar-time {
-      padding: 10px !important;
-    }
-
-    .time-meta {
-      text-align: right;
-      font-size: 12px;
-      padding: 1% !important;
-      color: rgba(0, 0, 0, .4);
-      vertical-align: baseline;
-    }
-
-    /*New Message*/
-
-    .newMessage {
-      padding: 0 !important;
-      margin: 0 !important;
-      height: 100%;
-      position: relative;
-      left: -100%;
-    }
-
-    .newMessage-heading {
-      padding: 10px 16px 10px 15px !important;
-      margin: 0 !important;
-      height: 100px;
-      width: 100%;
-      background-color: #00bfa5;
-      z-index: 1001;
-    }
-
-    .newMessage-main {
-      padding: 10px 16px 0 15px !important;
-      margin: 0 !important;
-      height: 60px;
-      margin-top: 30px !important;
-      width: 100%;
-      z-index: 1001;
-      color: #fff;
-    }
-
-    .newMessage-title {
-      font-size: 18px;
-      font-weight: 700;
-      padding: 10px 5px !important;
-    }
-
-    .newMessage-back {
-      text-align: center;
-      vertical-align: baseline;
-      padding: 12px 5px !important;
-      display: block;
-      cursor: pointer;
-    }
-
-    .newMessage-back i {
-      margin: auto !important;
-    }
-
-    .composeBox {
-      padding: 0 !important;
-      margin: 0 !important;
-      height: 60px;
-      width: 100%;
-    }
-
-    .composeBox-inner {
-      height: 100%;
-      width: 100%;
-      padding: 10px !important;
-      background-color: #fbfbfb;
-    }
-
-    .composeBox-inner input:focus {
-      outline: none;
-      border: none;
-      box-shadow: none;
-    }
-
-    .compose-sideBar {
-      padding: 0 !important;
-      margin: 0 !important;
-      background-color: #fff;
-      overflow-y: auto;
-      border: 1px solid #f7f7f7;
-      height: calc(100% - 160px);
-    }
-
-    /*Conversation*/
-
-    .conversation {
-      padding: 0 !important;
-      margin: 0 !important;
-      height: 100%;
-      /*width: 100%;*/
-      border-left: 1px solid rgba(0, 0, 0, .08);
-      /*overflow-y: auto;*/
-    }
-
-    .message {
-      padding: 0 !important;
-      margin: 0 !important;
-      background: url("w.jpg") no-repeat fixed center;
-      background-size: cover;
-      overflow-y: auto;
-      border: 1px solid #f7f7f7;
-      height: calc(100% - 120px);
-    }
-
-    .message-previous {
-      margin: 0 !important;
-      padding: 0 !important;
-      height: auto;
-      width: 100%;
-    }
-
-    .previous {
-      font-size: 15px;
-      text-align: center;
-      padding: 10px !important;
-      cursor: pointer;
-    }
-
-    .previous a {
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .message-body {
-      margin: 0 !important;
-      padding: 0 !important;
-      width: auto;
-      height: auto;
-    }
-
-    .message-main-receiver {
-      /*padding: 10px 20px;*/
-      max-width: 60%;
-    }
-
-    .message-main-sender {
-      padding: 3px 20px !important;
-      margin-left: 40% !important;
-      max-width: 60%;
-    }
-
-    .message-text {
-      margin: 0 !important;
-      padding: 5px !important;
-      word-wrap: break-word;
-      font-weight: 200;
-      font-size: 14px;
-      padding-bottom: 0 !important;
-    }
-
-    .message-time {
-      margin: 0 !important;
-      margin-left: 50px !important;
-      font-size: 12px;
-      text-align: right;
-      color: #9a9a9a;
-
-    }
-
-    .receiver {
-      width: auto !important;
-      padding: 4px 10px 7px !important;
-      border-radius: 10px 10px 10px 0;
-      background: #ffffff;
-      font-size: 12px;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
-      word-wrap: break-word;
+    .srch_bar {
       display: inline-block;
+      text-align: right;
+      width: 60%;
+      padding: 0px;
     }
 
-    .sender {
-      float: right;
-      width: auto !important;
-      background: #dcf8c6;
-      border-radius: 10px 10px 0 10px;
-      padding: 4px 10px 7px !important;
-      font-size: 12px;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
-      display: inline-block;
-      word-wrap: break-word;
-    }
-
-
-    /*Reply*/
-
-    .reply {
-      height: 60px;
-      width: 100%;
-      background-color: #f5f1ee;
-      padding: 10px 5px 10px 5px !important;
-      margin: 0 !important;
-      z-index: 1000;
-    }
-
-    .reply-emojis {
-      padding: 5px !important;
-    }
-
-    .reply-emojis i {
-      text-align: center;
-      padding: 5px 5px 5px 5px !important;
-      color: #93918f;
-      cursor: pointer;
-    }
-
-    .reply-recording {
-      padding: 5px !important;
-    }
-
-    .reply-recording i {
-      text-align: center;
-      padding: 5px !important;
-      color: #93918f;
-      cursor: pointer;
-    }
-
-    .reply-send {
-      padding: 5px !important;
-    }
-
-    .reply-send i {
-      text-align: center;
-      padding: 5px !important;
-      color: #93918f;
-      cursor: pointer;
-    }
-
-    .reply-main {
-      padding: 2px 5px !important;
-    }
-
-    .reply-main textarea {
-      width: 100%;
-      resize: none;
+    .headind_srch {
+      padding: 10px 29px 10px 20px;
       overflow: hidden;
-      padding: 5px !important;
-      outline: none;
-      border: none;
-      text-indent: 5px;
-      box-shadow: none;
-      height: 100%;
+      border-bottom: 1px solid #c4c4c4;
+    }
+
+    .recent_heading h4 {
+      color: #0465ac;
       font-size: 16px;
+      margin: auto;
+      line-height: 29px;
     }
 
-    .reply-main textarea:focus {
+    .srch_bar input {
       outline: none;
-      border: none;
-      text-indent: 5px;
-      box-shadow: none;
+      border: 1px solid #cdcdcd;
+      border-width: 0 0 1px 0;
+      width: 80%;
+      padding: 2px 0 4px 6px;
+      background: none;
     }
 
-    @media screen and (max-width: 700px) {
-      .app {
-        top: 0;
-        height: 100%;
-      }
+    .srch_bar .input-group-addon button {
+      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+      border: medium none;
+      padding: 0;
+      color: #707070;
+      font-size: 18px;
+    }
 
-      .heading {
-        height: 70px;
-        background-color: #009688;
-      }
+    .srch_bar .input-group-addon {
+      margin: 0 0 0 -27px;
+    }
 
-      .fa-2x {
-        font-size: 2.3em !important;
-      }
+    .chat_ib h5 {
+      font-size: 15px;
+      color: #464646;
+      margin: 0 0 8px 0;
+    }
 
-      .heading-avatar {
-        padding: 0 !important;
-      }
+    .chat_ib h5 span {
+      font-size: 13px;
+      float: right;
+    }
 
-      .heading-avatar-icon img {
-        height: 50px;
-        width: 50px;
-      }
+    .chat_ib p {
+      font-size: 12px;
+      color: #989898;
+      margin: auto;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-      .heading-compose {
-        padding: 5px !important;
-      }
+    .chat_img {
+      float: left;
+      width: 11%;
+    }
 
-      .heading-compose i {
-        color: #fff;
-        cursor: pointer;
-      }
+    .chat_img img {
+      width: 100%
+    }
 
-      .heading-dot {
-        padding: 5px !important;
-        margin-left: 10px !important;
-      }
+    .chat_ib {
+      float: left;
+      padding: 0 0 0 15px;
+      width: 88%;
+    }
 
-      .heading-dot i {
-        color: #fff;
-        cursor: pointer;
-      }
+    .chat_people {
+      overflow: hidden;
+      clear: both;
+    }
 
-      .sideBar {
-        height: calc(100% - 130px);
-      }
+    .chat_list {
+      border-bottom: 1px solid #ddd;
+      margin: 0;
+      padding: 18px 16px 10px;
+    }
 
-      .sideBar-body {
-        height: 80px;
-      }
+    .inbox_chat {
+      height: 550px;
+      overflow-y: scroll;
+    }
 
-      .sideBar-avatar {
-        text-align: left;
-        padding: 0 8px !important;
-      }
+    .active_chat {
+      background: #e8f6ff;
+    }
 
-      .avatar-icon img {
-        height: 55px;
-        width: 55px;
-      }
+    .incoming_msg_img {
+      display: inline-block;
+      width: 6%;
+    }
 
-      .sideBar-main {
-        padding: 0 !important;
-      }
+    .incoming_msg_img img {
+      width: 100%;
+    }
 
-      .sideBar-main .row {
-        padding: 0 !important;
-        margin: 0 !important;
-      }
+    .received_msg {
+      display: inline-block;
+      padding: 0 0 0 10px;
+      vertical-align: top;
+      width: 92%;
+    }
 
-      .sideBar-name {
-        padding: 10px 5px !important;
-      }
+    .received_withd_msg p {
+      background: #ebebeb none repeat scroll 0 0;
+      border-radius: 0 15px 15px 15px;
+      color: #646464;
+      font-size: 14px;
+      margin: 0;
+      padding: 5px 10px 5px 12px;
+      width: 100%;
+    }
 
-      .name-meta {
-        font-size: 16px;
-        padding: 5% !important;
-      }
+    .time_date {
+      color: #747474;
+      display: block;
+      font-size: 12px;
+      margin: 8px 0 0;
+    }
 
-      .sideBar-time {
-        padding: 10px !important;
-      }
+    .received_withd_msg {
+      width: 57%;
+    }
 
-      .time-meta {
-        text-align: right;
-        font-size: 14px;
-        padding: 4% !important;
-        color: rgba(0, 0, 0, .4);
-        vertical-align: baseline;
-      }
+    .mesgs {
+      float: left;
+      padding: 30px 15px 0 25px;
+      width: 70%;
+    }
 
-      /*Conversation*/
-      .conversation {
-        padding: 0 !important;
-        margin: 0 !important;
-        height: 100%;
-        /*width: 100%;*/
-        border-left: 1px solid rgba(0, 0, 0, .08);
-        /*overflow-y: auto;*/
-      }
+    .sent_msg p {
+      background: #0465ac;
+      border-radius: 12px 15px 15px 0;
+      font-size: 14px;
+      margin: 0;
+      color: #fff;
+      padding: 5px 10px 5px 12px;
+      width: 100%;
+    }
 
-      .message {
-        height: calc(100% - 140px);
-      }
+    .outgoing_msg {
+      overflow: hidden;
+      margin: 26px 0 26px;
+    }
 
-      .reply {
-        height: 70px;
-      }
+    .sent_msg {
+      float: right;
+      width: 46%;
+    }
 
-      .reply-emojis {
-        padding: 5px 0 !important;
-      }
+    .input_msg_write input {
+      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+      border: medium none;
+      color: #4c4c4c;
+      font-size: 15px;
+      min-height: 48px;
+      width: 100%;
+      outline: none;
+    }
 
-      .reply-emojis i {
-        padding: 5px 2px !important;
-        font-size: 1.8em !important;
-      }
+    .type_msg {
+      border-top: 1px solid #c4c4c4;
+      position: relative;
+    }
 
-      .reply-main {
-        padding: 2px 8px !important;
-      }
+    .msg_send_btn {
+      background: #05728f none repeat scroll 0 0;
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      font-size: 15px;
+      height: 33px;
+      position: absolute;
+      right: 0;
+      top: 11px;
+      width: 33px;
+    }
 
-      .reply-main textarea {
-        padding: 8px !important;
-        font-size: 18px;
-      }
+    .messaging {
+      padding: 0 0 50px 0;
+    }
 
-      .reply-recording {
-        padding: 5px 0 !important;
-      }
-
-      .reply-recording i {
-        padding: 5px 0 !important;
-        font-size: 1.8em !important;
-      }
-
-      .reply-send {
-        padding: 5px 0 !important;
-      }
-
-      .reply-send i {
-        padding: 5px 2px 5px 0 !important;
-        font-size: 1.8em !important;
-      }
+    .msg_history {
+      height: 516px;
+      overflow-y: auto;
     }
   </style>
 
@@ -643,8 +264,100 @@
             <?php echo $success; ?>
           </div>
         <?php } ?>
+        <!-- <div class="messaging">
+          <div class="inbox_msg">
+            <div class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <h4>Recent</h4>
+                </div>
+                <div class="srch_bar">
+                  <div class="stylish-input-group">
+                    <input type="text" class="search-bar" placeholder="Search">
+                  </div>
+                </div>
+              </div>
+              <div class="inbox_chat scroll">
+                <div class="chat_list active_chat">
+                  <div class="chat_people">
+                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="chat_ib">
+                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                      <p>Test, which is a new approach to have all solutions
+                        astrology under one roof.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat_list">
+                  <div class="chat_people">
+                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="chat_ib">
+                      <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                      <p>Test, which is a new approach to have all solutions
+                        astrology under one roof.</p>
+                    </div>
+                  </div>
+                </div>
 
-        <form name="list_user" id="list_user" method="post" action="<?php ?>">
+              </div>
+            </div>
+            <div class="mesgs">
+              <div class="msg_history">
+                <div class="incoming_msg">
+                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="received_msg">
+                    <div class="received_withd_msg">
+                      <p>Test which is a new approach to have all
+                        solutions</p>
+                      <span class="time_date"> 11:01 AM | June 9</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="outgoing_msg">
+                  <div class="sent_msg">
+                    <p>Test which is a new approach to have all
+                      solutions</p>
+                    <span class="time_date"> 11:01 AM | June 9</span>
+                  </div>
+                </div>
+                <div class="incoming_msg">
+                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="received_msg">
+                    <div class="received_withd_msg">
+                      <p>Test, which is a new approach to have</p>
+                      <span class="time_date"> 11:01 AM | Yesterday</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="outgoing_msg">
+                  <div class="sent_msg">
+                    <p>Apollo University, Delhi, India Test</p>
+                    <span class="time_date"> 11:01 AM | Today</span>
+                  </div>
+                </div>
+                <div class="incoming_msg">
+                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="received_msg">
+                    <div class="received_withd_msg">
+                      <p>We work directly with our designers and suppliers,
+                        and sell direct to you, which means quality, exclusive
+                        products, at a price anyone can afford.</p>
+                      <span class="time_date"> 11:01 AM | Today</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="type_msg">
+                <div class="input_msg_write">
+                  <input type="text" class="write_msg" placeholder="Type a message" />
+                  <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <form name="list_user" id="list_user" method="post">
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
@@ -654,6 +367,7 @@
                   <th width="300">Actions</th>
 
                 </tr>
+
               </thead>
               <tbody>
                 <?php if (!empty($Friends)) {
@@ -667,9 +381,9 @@
                       <td>
                         <a href="<?php echo base_url() . 'index.php/User/chat_with_user/' . $friend['user_id'] . '';
                                   ?>" class="btn btn-primary">Chat with Freind</a>
-
                       </td>
-
+                      <!-- <button type="submit" id="chat_with_user<?php echo $friend['user_id']; ?>" class="btn btn-primary chat_with_user">Chat with Freind</button>
+                        <input type="hidden" id="user_id" value="<?php echo $friend['user_id']; ?>"  -->
                     </tr>
                   <?php }
                 } else {
@@ -689,6 +403,7 @@
   </div>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
   </script>
+
   <script type="text/javascript">
     $("#search").keyup(function() {
       var value = this.value.toLowerCase().trim();
@@ -705,8 +420,41 @@
     });
   </script>
 
+  <script type="text/javascript">
+    // $(".chat_with_user").click(function() {
+    //   /// var user_id = $(this).attr('id');
+    //   var user_id = $('input[name=id]').val();
+    //   console.log(user_id);
+    //   $.ajax({
+    //     url: "<?php echo base_url() ?>index.php/User/chat_with_user",
+    //     type: "GET",
+    //     data: {
+    //       user_id: user_id
+    //     },
+    //     success: function(data) {
+    //       console.log(data);
 
-
+    //     }
+    //   });
+    // });
+    // $(function() {
+    //   $(".chat_with_user").click(function(event) {
+    //     event.preventDefault();
+    //     var user_id = $("#user_id").val();
+    //     $.ajax({
+    //       type: "post",
+    //       url: "http://localhost/loginproject/index.php/User/chat_with_user",
+    //       data: {
+    //         'user_id': user_id,
+    //       },
+    //       dataType: 'JSON',
+    //       success: function(data) {
+    //         console.log(data);
+    //       }
+    //     });
+    //   });
+    // });
+  </script>
 </body>
 
 </html>

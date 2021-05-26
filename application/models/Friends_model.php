@@ -52,9 +52,9 @@ class Friends_model extends CI_Model
     $array = array('user_id' => $userid, 'sender_id!=' => '');
     $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -81,9 +81,9 @@ class Friends_model extends CI_Model
     //$this->db->where('user_id', $receiver_id);
 
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -112,9 +112,9 @@ class Friends_model extends CI_Model
     $array = array('user_id' => $userid, 'receiver_id!=' => '');
     $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -142,9 +142,9 @@ class Friends_model extends CI_Model
     $this->db->where($array);
     //$this->db->where('user_id', $userid);
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -173,9 +173,9 @@ class Friends_model extends CI_Model
     $array = array('user_id' => $sender_userid, 'friends!=' => '');
     $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -206,9 +206,9 @@ class Friends_model extends CI_Model
     $array = array('user_id' => $sender_userid, 'sender_id!=' => '');
     $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
@@ -236,16 +236,16 @@ class Friends_model extends CI_Model
     $array = array('user_id' => $userid, 'receiver_id!=' => '');
     $this->db->where($array);
     $data_Array = $this->db->get('users')->result_array();
-    if (empty($data_Array)) {
-      return $data_Array;
-    }
+    // if (empty($data_Array)) {
+    //   return $data_Array;
+    // }
     //instead of foreach i used array_shift
     $user_details = array_shift($data_Array);
 
     $old_receiver_id = $user_details['receiver_id'];
 
     $char_to_remove = $sender_userid . ",";
-
+    
     $new_reciever_id = str_replace($char_to_remove, '', $old_receiver_id);
     $char_to_remove = $sender_userid;
     $new_reciever_id = str_replace($char_to_remove, '', $old_receiver_id);

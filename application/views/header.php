@@ -33,6 +33,7 @@
                   ///} 
                   ?>" href="<?php echo base_url('index.php/Friends/Recieved_request') ?>" title="My Freinds">
           <span data-feather="file"></span>
+          <?php  ?>
           New Friend Requests
         </a>
       </li>

@@ -2,9 +2,15 @@
 <html lang="en">
 
 <head>
+
   <?php $this->form_validation->set_error_delimiters('<span class=error>', '</span>'); ?>
+
   <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css'>
-  <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+  <script type="text/javascript">
+    setTimeout(function() {
+      location.reload();
+    }, 10000);
+  </script>
   <style>
     .error {
       color: red;
@@ -345,7 +351,7 @@
         <?php $sessionuid = $this->session->userdata('user');
         ?>
 
-        <form name="chat_blog" id="chat_blog" method="post" action="<?php echo base_url() . 'index.php/User/send_chat/' . $sessionuid['user_id']; ?>">
+        <form name="chat_blog" id="chat_blog" method="post">
           <?php $success = $this->session->userdata('success');
           if (!empty($success)) {
           ?>
@@ -364,6 +370,8 @@
                     <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
                       <div class="media media-chat">
                         <div class="media-body">
+                          <input type="text" name="fromuserid" id="fromuserid" hidden value=<?php echo $sessionuid['user_id']; ?> />
+
                           <input type="text" name="touserid" id="touserid" hidden value=<?php echo $User['user_id']; ?> />
                           <input type="text" name="tousername" id="tousername" hidden value=<?php echo $User['username']; ?> />
                           <input type="text" name="fromusername" id="fromusername" hidden value=<?php echo  $sessionuid['username']; ?> />
@@ -421,22 +429,51 @@
                       <span class="publisher-btn file-group"> <i class="fa fa-paperclip file-browser"></i>
                         <input type="file"> </span> <a class="publisher-btn" href="#" data-abc="true">
                         <i class="fa fa-smile"></i></a>
-                      <button type="submit" class="publisher-btn text-info" href="" data-abc="true"><i class="fa fa-paper-plane"></i></button>
+                      <button type="submit" id="sendchat" class="publisher-btn text-info" href="" data-abc="true"><i class="fa fa-paper-plane"></i></button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-
-
-
         </form>
-
       </main>
     </div>
   </div>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+      $("#sendchat").click(function(e) {
+        e.preventDefault();
+        var fromuserid = $("#fromuserid").val();
+        var touserid = $("#touserid").val();
+        var tousername = $("#tousername").val();
+        var fromusername = $("#fromusername").val();
+        var message_to_send = $("#message_to_send").val();
+        $.ajax({
+          type: "POST",
+          url: '<?php echo base_url() ?>index.php/User/send_chat',
+          data: {
+            fromuserid: fromuserid,
+            touserid: touserid,
+            tousername: tousername,
+            fromusername: fromusername,
+            message_to_send: message_to_send
+          },
+          success: function(data) {
+            //alert('SUCCESS!!');
+            location.reload();
+          },
+          error: function() {
+            alert('fail');
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
+
 
 </html>

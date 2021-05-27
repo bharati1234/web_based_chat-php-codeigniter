@@ -41,9 +41,9 @@ class User extends CI_Controller
       $this->load->view("admin/User/edit_User", $data);
     }
   }
-  public function send_chat($from_user_id)
+  public function send_chat()
   {
-
+    $from_user_id = $this->input->post('fromuserid');
     $data = array();
     $this->load->model('User_model');
     $User = $this->User_model->getUsersById($from_user_id);
@@ -62,14 +62,7 @@ class User extends CI_Controller
     //print_r($formarray);
     // exit;
     $this->User_model->insert_chat_messages($formarray); //it will insert the records in chat messsages
-    $this->session->set_flashdata('success', "Messsage  Sent Successfully");
-    //$this->load->view("admin/User/chat_with_user");
-    redirect("Friends/index");
-    //$this->load->view("admin/User/listFriends");
-
-    // 
-    // $data['User'] = $User;
-    // $this->load->view("", $data);
+    // $this->session->set_flashdata('success', "Messsage  Sent Successfully");
   }
 
 
